@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Information</title>
+    {% load static %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/weather-background.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .company-box {
+            background-color: #1e90ff;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        h1 {
+            color: #1e90ff;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 22px);
+            border: 2px solid #1e90ff;
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #4682b4;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4682b4;
+        }
+        h2 {
+            color: #4682b4;
+        }
+        .alert {
+            font-weight: bold;
+            color: #ff4500;
+        }
+        .info {
+            background-color: #e6e6fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .info p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Company Name Box -->
+        <div class="company-box">
+            Fluid Structure
+        </div>
+
+        <h1>Weather Information</h1>
+
+        <!-- Search Form -->
+        <form method="get" action="{% url 'home' %}">
+            <input type="text" name="city" placeholder="Enter city" value="{{ city }}">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if city %}
+            <h2>Weather in {{ city }}</h2>
+            <div class="info">
+                <p>Temperature: <strong>{{ temperature }}°C</strong></p>
+                <p>Humidity: <strong>{{ humidity }}%</strong></p>
+                <p>Condition: <strong>{{ weather_condition }}</strong></p>
+                <p>Average Temperature (last 24 hours): <strong>{{ avg_temp }}°C</strong></p>
+                <p>Humidity Trend (last 24 hours): <strong>{{ humidity_trend }}%</strong></p>
+                <h3 class="alert">Alert:</h3>
+                <p>{{ alert }}</p>
+            </div>
+        {% else %}
+            <p>Please enter a city to get weather information.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
